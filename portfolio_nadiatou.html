@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Nadiatou Djibo Oumarou — Data Analyst Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --ink: #0e1117;
+    --paper: #f7f4ef;
+    --gold: #c9952a;
+    --gold-light: #e8bf6a;
+    --teal: #1a6b6b;
+    --teal-light: #2a9b9b;
+    --rust: #b84c1e;
+    --muted: #6b6760;
+    --border: #d9d4cb;
+    --card-bg: #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(247,244,239,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 700;
+    letter-spacing: 0.02em; color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--muted);
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding: 0 4rem; padding-top: 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding-right: 4rem; z-index: 2;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem; letter-spacing: 0.18em;
+    color: var(--teal); text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block; width: 2rem; height: 1px;
+    background: var(--teal);
+  }
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 5vw, 4.8rem);
+    font-weight: 900; line-height: 1.05;
+    letter-spacing: -0.02em; color: var(--ink);
+    margin-bottom: 1.2rem;
+  }
+  .hero-name span { color: var(--gold); }
+  .hero-title {
+    font-size: 1.05rem; color: var(--muted);
+    line-height: 1.6; margin-bottom: 2.5rem;
+    max-width: 420px;
+  }
+  .hero-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 3rem; }
+  .tag {
+    padding: 0.4rem 1rem; border: 1px solid var(--border);
+    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.04em;
+    color: var(--ink); border-radius: 2rem;
+    background: white;
+  }
+  .tag.active { background: var(--teal); color: white; border-color: var(--teal); }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    padding: 0.85rem 2rem; text-decoration: none;
+    font-size: 0.88rem; font-weight: 600; letter-spacing: 0.04em;
+    border-radius: 0.2rem; transition: all 0.2s; display: inline-block;
+  }
+  .btn-primary { background: var(--ink); color: white; }
+  .btn-primary:hover { background: var(--teal); transform: translateY(-1px); }
+  .btn-secondary { border: 1.5px solid var(--ink); color: var(--ink); }
+  .btn-secondary:hover { background: var(--ink); color: white; transform: translateY(-1px); }
+
+  .hero-right {
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .hero-visual {
+    width: 420px; height: 420px;
+    position: relative;
+  }
+  .hero-bg-circle {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 360px; height: 360px; border-radius: 50%;
+    background: linear-gradient(135deg, rgba(26,107,107,0.12), rgba(201,149,42,0.12));
+    border: 1px solid var(--border);
+  }
+  .data-card {
+    position: absolute; background: white;
+    border: 1px solid var(--border); border-radius: 0.6rem;
+    padding: 1rem 1.2rem; box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    animation: float 4s ease-in-out infinite;
+  }
+  .data-card:nth-child(2) { top: 10%; left: -5%; animation-delay: -1s; }
+  .data-card:nth-child(3) { top: 55%; right: -8%; animation-delay: -2s; }
+  .data-card:nth-child(4) { bottom: 8%; left: 5%; animation-delay: -3s; }
+  .card-label { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+  .card-value { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--ink); }
+  .card-value.teal { color: var(--teal); }
+  .card-value.gold { color: var(--gold); }
+  .card-bar { display: flex; gap: 3px; margin-top: 4px; }
+  .bar { height: 22px; border-radius: 2px; background: var(--teal); opacity: 0.7; }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 7rem 4rem; }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .section-label::before { content:''; display:block; width:2rem; height:1px; background:var(--teal); }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 700; line-height: 1.15; margin-bottom: 1rem;
+  }
+  .section-sub { color: var(--muted); font-size: 1rem; line-height: 1.7; max-width: 540px; }
+
+  /* ── ABOUT ── */
+  #about { background: white; }
+  .about-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 6rem; align-items: start; margin-top: 4rem; }
+  .about-stats { display: flex; flex-direction: column; gap: 2rem; }
+  .stat-item { padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+  .stat-item:last-child { border-bottom: none; }
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.2rem; font-weight: 900; color: var(--gold); line-height: 1;
+  }
+  .stat-desc { font-size: 0.9rem; color: var(--muted); margin-top: 0.3rem; }
+  .about-text p { color: var(--muted); line-height: 1.8; font-size: 1rem; margin-bottom: 1.2rem; }
+  .about-text p strong { color: var(--ink); font-weight: 600; }
+  .lang-list { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+  .lang-pill {
+    padding: 0.5rem 1.2rem; border-radius: 2rem;
+    font-size: 0.82rem; font-weight: 500;
+  }
+  .lang-pill.native { background: var(--teal); color: white; }
+  .lang-pill.pro { background: var(--gold); color: white; }
+  .lang-pill.basic { background: var(--border); color: var(--ink); }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--paper); }
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 4rem; }
+  .skill-cat {
+    background: white; border: 1px solid var(--border);
+    border-radius: 0.8rem; padding: 2rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .skill-cat:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.07); }
+  .skill-cat-icon { font-size: 1.6rem; margin-bottom: 1rem; }
+  .skill-cat-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 1.2rem; color: var(--ink); }
+  .skill-item { display: flex; flex-direction: column; gap: 0.3rem; margin-bottom: 1rem; }
+  .skill-name { font-size: 0.82rem; font-weight: 500; color: var(--ink); display: flex; justify-content: space-between; }
+  .skill-name span { color: var(--muted); font-weight: 400; }
+  .skill-bar { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .skill-fill {
+    height: 100%; border-radius: 2px;
+    background: linear-gradient(90deg, var(--teal), var(--teal-light));
+    transform: scaleX(0); transform-origin: left;
+    animation: fillBar 1s ease-out forwards;
+    animation-play-state: paused;
+  }
+  .skill-fill.gold-fill {
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  }
+  .skills-grid.visible .skill-fill { animation-play-state: running; }
+  @keyframes fillBar { to { transform: scaleX(1); } }
+
+  /* ── PROJECTS ── */
+  #projects { background: white; }
+  .projects-header { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 2rem; margin-bottom: 4rem; }
+  .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .project-card {
+    border: 1px solid var(--border); border-radius: 0.8rem;
+    overflow: hidden; background: white;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex; flex-direction: column;
+  }
+  .project-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.08); }
+  .project-thumb {
+    height: 160px; display: flex; align-items: center; justify-content: center;
+    font-size: 2.5rem; position: relative; overflow: hidden;
+  }
+  .project-thumb.teal-bg { background: linear-gradient(135deg, #1a6b6b22, #2a9b9b33); }
+  .project-thumb.gold-bg { background: linear-gradient(135deg, #c9952a22, #e8bf6a33); }
+  .project-thumb.rust-bg { background: linear-gradient(135deg, #b84c1e22, #d4764533); }
+  .coming-soon-badge {
+    position: absolute; top: 12px; right: 12px;
+    background: var(--ink); color: white;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem; letter-spacing: 0.1em;
+    padding: 0.3rem 0.7rem; border-radius: 2rem;
+    text-transform: uppercase;
+  }
+  .done-badge {
+    position: absolute; top: 12px; right: 12px;
+    background: var(--teal); color: white;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem; letter-spacing: 0.1em;
+    padding: 0.3rem 0.7rem; border-radius: 2rem;
+    text-transform: uppercase;
+  }
+  .project-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+  .project-category {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 0.6rem;
+  }
+  .project-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; margin-bottom: 0.8rem; color: var(--ink); }
+  .project-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.6; flex: 1; margin-bottom: 1.2rem; }
+  .project-tools { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.2rem; }
+  .tool-tag {
+    padding: 0.25rem 0.7rem; background: var(--paper);
+    border: 1px solid var(--border); border-radius: 2rem;
+    font-size: 0.72rem; font-weight: 500; color: var(--muted);
+  }
+  .project-link {
+    font-size: 0.82rem; font-weight: 600; color: var(--teal);
+    text-decoration: none; display: flex; align-items: center; gap: 0.4rem;
+    opacity: 0.5;
+  }
+  .project-link.active { opacity: 1; }
+  .project-link.active:hover { color: var(--rust); }
+
+  /* ── CERTIFICATIONS ── */
+  #certifications { background: var(--ink); color: white; }
+  #certifications .section-label { color: var(--gold-light); }
+  #certifications .section-label::before { background: var(--gold-light); }
+  #certifications .section-title { color: white; }
+  #certifications .section-sub { color: rgba(255,255,255,0.55); }
+  .certs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 4rem; }
+  .cert-card {
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 0.8rem; padding: 2rem;
+    background: rgba(255,255,255,0.04);
+    transition: background 0.2s, transform 0.2s;
+  }
+  .cert-card:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+  .cert-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .cert-org { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 0.5rem; }
+  .cert-name { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: white; margin-bottom: 0.5rem; line-height: 1.3; }
+  .cert-year { font-size: 0.8rem; color: rgba(255,255,255,0.4); }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--paper); }
+  .contact-inner {
+    max-width: 680px; margin: 0 auto; text-align: center;
+    padding: 4rem 2rem;
+  }
+  .contact-inner .section-label { justify-content: center; }
+  .contact-inner .section-label::before { display: none; }
+  .contact-inner .section-title { text-align: center; }
+  .contact-inner .section-sub { text-align: center; margin: 1rem auto 3rem; }
+  .contact-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 0.7rem;
+    padding: 1rem 1.8rem; background: white;
+    border: 1px solid var(--border); border-radius: 0.5rem;
+    text-decoration: none; color: var(--ink);
+    font-size: 0.88rem; font-weight: 500;
+    transition: all 0.2s;
+  }
+  .contact-link:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+  .contact-link-icon { font-size: 1.1rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink); color: rgba(255,255,255,0.4);
+    text-align: center; padding: 2rem 4rem;
+    font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.08em;
+  }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width: 900px) {
+    nav { padding: 1rem 2rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 6rem 2rem 4rem; }
+    .hero-right { display: none; }
+    section { padding: 5rem 2rem; }
+    .about-grid, .skills-grid, .projects-grid, .certs-grid { grid-template-columns: 1fr; }
+    .projects-header { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">NDO</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Data Analyst · Data Entry Specialist</div>
+    <h1 class="hero-name">Nadiatou<br/><span>Djibo Oumarou</span></h1>
+    <p class="hero-title">
+      Turning raw data into clear decisions. Administrative precision meets analytical thinking — based in Niamey, Niger, open to remote opportunities worldwide.
+    </p>
+    <div class="hero-tags">
+      <span class="tag active">Data Analysis</span>
+      <span class="tag">Data Entry</span>
+      <span class="tag">Excel · SQL</span>
+      <span class="tag">Admin Operations</span>
+      <span class="tag">Google Certified</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">View My Work</a>
+      <a href="Nadiatou_Djibo_Oumarou_CV_EN.docx" class="btn btn-secondary" download>Download CV</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-visual">
+      <div class="hero-bg-circle"></div>
+      <div class="data-card" style="top:8%;left:-5%">
+        <div class="card-label">Data Accuracy</div>
+        <div class="card-value teal">99.4%</div>
+        <div class="card-bar">
+          <div class="bar" style="width:28px"></div>
+          <div class="bar" style="width:18px;opacity:.4"></div>
+          <div class="bar" style="width:34px"></div>
+          <div class="bar" style="width:22px;opacity:.5"></div>
+          <div class="bar" style="width:38px"></div>
+        </div>
+      </div>
+      <div class="data-card" style="top:42%;right:-10%">
+        <div class="card-label">Years Experience</div>
+        <div class="card-value gold">3+</div>
+        <div class="card-label" style="margin-top:2px">Admin & Operations</div>
+      </div>
+      <div class="data-card" style="bottom:10%;left:2%">
+        <div class="card-label">Certifications</div>
+        <div class="card-value" style="font-size:1.2rem">🎓 Google · ALX · IoT</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About Me</div>
+  <div class="about-grid">
+    <div class="about-stats">
+      <div class="stat-item reveal">
+        <div class="stat-number">3+</div>
+        <div class="stat-desc">Years in Administrative & Financial Management</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-1">
+        <div class="stat-number">3</div>
+        <div class="stat-desc">Professional Certifications (2023–2025)</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-2">
+        <div class="stat-number">2</div>
+        <div class="stat-desc">Languages at Professional Level</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-3">
+        <div class="stat-number">∞</div>
+        <div class="stat-desc">Curiosity for Data & Technology</div>
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <div class="section-title">From Admin Precision<br/>to Data Intelligence</div>
+      <p style="margin-top:1.5rem">I'm an administrative and operations professional who discovered a deep passion for data. After 3+ years managing financial records, coordinating operations, and building internal processes at Successway, I realized that <strong>the real power lies in the data behind every decision</strong>.</p>
+      <p>I hold a <strong>European Master's in Business Management & Strategy</strong> and recently earned my <strong>Google Data Analytics Professional Certificate</strong>. I'm now building hands-on projects to bridge my operational experience with analytical skills.</p>
+      <p>I believe the best data analysts aren't just technical — they understand business processes, speak multiple languages, and know how to communicate insights clearly. That's exactly where I sit.</p>
+      <div class="lang-list">
+        <span class="lang-pill native">🇫🇷 French — Native</span>
+        <span class="lang-pill pro">🇬🇧 English — B2 Professional</span>
+        <span class="lang-pill basic">🇪🇸 Spanish — Basic</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Skills & Tools</div>
+  <div class="section-title">What I Work With</div>
+  <div class="skills-grid" id="skills-grid">
+
+    <div class="skill-cat reveal">
+      <div class="skill-cat-icon">📊</div>
+      <div class="skill-cat-title">Data Analytics</div>
+      <div class="skill-item">
+        <div class="skill-name">Microsoft Excel <span>Advanced</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="animation-delay:0.1s;width:88%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">Google Sheets <span>Advanced</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="animation-delay:0.2s;width:85%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">SQL <span>Intermediate</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="animation-delay:0.3s;width:65%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">Data Visualization <span>Learning</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="animation-delay:0.4s;width:50%"></div></div>
+      </div>
+    </div>
+
+    <div class="skill-cat reveal reveal-delay-1">
+      <div class="skill-cat-icon">🗂️</div>
+      <div class="skill-cat-title">Data Entry & Admin</div>
+      <div class="skill-item">
+        <div class="skill-name">Data Entry & Validation <span>Expert</span></div>
+        <div class="skill-bar"><div class="skill-fill gold-fill" style="animation-delay:0.1s;width:95%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">Document Management <span>Expert</span></div>
+        <div class="skill-bar"><div class="skill-fill gold-fill" style="animation-delay:0.2s;width:93%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">Process Improvement <span>Advanced</span></div>
+        <div class="skill-bar"><div class="skill-fill gold-fill" style="animation-delay:0.3s;width:80%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">HR Administration <span>Intermediate</span></div>
+        <div class="skill-bar"><div class="skill-fill gold-fill" style="animation-delay:0.4s;width:70%"></div></div>
+      </div>
+    </div>
+
+    <div class="skill-cat reveal reveal-delay-2">
+      <div class="skill-cat-icon">🚀</div>
+      <div class="skill-cat-title">Currently Learning</div>
+      <div class="skill-item">
+        <div class="skill-name">Python (Pandas) <span>Beginner</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="animation-delay:0.1s;width:30%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">Tableau <span>Beginner</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="animation-delay:0.2s;width:35%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">Power BI <span>Beginner</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="animation-delay:0.3s;width:25%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">R (Statistics) <span>Exploring</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="animation-delay:0.4s;width:15%"></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="projects-header">
+    <div>
+      <div class="section-label">Projects</div>
+      <div class="section-title">My Data Work</div>
+      <p class="section-sub">Real projects using real data — built to solve real problems. Portfolio actively growing.</p>
+    </div>
+  </div>
+
+  <div class="projects-grid">
+
+    <!-- Project 1 — Coming soon -->
+    <div class="project-card reveal">
+      <div class="project-thumb teal-bg">
+        📈
+        <span class="coming-soon-badge">Coming Soon</span>
+      </div>
+      <div class="project-body">
+        <div class="project-category">Data Analysis · Excel</div>
+        <div class="project-title">Sales Performance Dashboard</div>
+        <div class="project-desc">Analyzing 12 months of sales data to identify trends, top products, and regional performance. Built with Excel pivot tables and dynamic charts.</div>
+        <div class="project-tools">
+          <span class="tool-tag">Excel</span>
+          <span class="tool-tag">Pivot Tables</span>
+          <span class="tool-tag">Data Cleaning</span>
+          <span class="tool-tag">Charts</span>
+        </div>
+        <a href="#" class="project-link">🔒 In Progress — coming soon</a>
+      </div>
+    </div>
+
+    <!-- Project 2 — Coming soon -->
+    <div class="project-card reveal reveal-delay-1">
+      <div class="project-thumb gold-bg">
+        🧹
+        <span class="coming-soon-badge">Coming Soon</span>
+      </div>
+      <div class="project-body">
+        <div class="project-category">Data Cleaning · SQL</div>
+        <div class="project-title">HR Data Cleaning & Reporting</div>
+        <div class="project-desc">Cleaning and restructuring a messy HR dataset using SQL and Google Sheets. Producing a clean report with employee metrics and turnover analysis.</div>
+        <div class="project-tools">
+          <span class="tool-tag">SQL</span>
+          <span class="tool-tag">Google Sheets</span>
+          <span class="tool-tag">Data Wrangling</span>
+        </div>
+        <a href="#" class="project-link">🔒 In Progress — coming soon</a>
+      </div>
+    </div>
+
+    <!-- Project 3 — Coming soon -->
+    <div class="project-card reveal reveal-delay-2">
+      <div class="project-thumb rust-bg">
+        🌍
+        <span class="coming-soon-badge">Coming Soon</span>
+      </div>
+      <div class="project-body">
+        <div class="project-category">Visualization · Tableau</div>
+        <div class="project-title">West Africa Economic Indicators</div>
+        <div class="project-desc">Visualizing key economic and social indicators across West African countries using public datasets. Interactive Tableau dashboard with storytelling.</div>
+        <div class="project-tools">
+          <span class="tool-tag">Tableau</span>
+          <span class="tool-tag">Public Data</span>
+          <span class="tool-tag">Storytelling</span>
+        </div>
+        <a href="#" class="project-link">🔒 In Progress — coming soon</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-label">Credentials</div>
+  <div class="section-title" style="color:white">Certifications & Education</div>
+  <p class="section-sub">Continuous learning is how I stay sharp and relevant in a fast-moving field.</p>
+
+  <div class="certs-grid">
+    <div class="cert-card reveal">
+      <div class="cert-icon">🎓</div>
+      <div class="cert-org">Google / Coursera</div>
+      <div class="cert-name">Google Data Analytics Professional Certificate</div>
+      <div class="cert-year">2025 · 8-course specialization</div>
+    </div>
+    <div class="cert-card reveal reveal-delay-1">
+      <div class="cert-icon">🌍</div>
+      <div class="cert-org">ALX Africa</div>
+      <div class="cert-name">Data Analytics — Skills for the Digital Age</div>
+      <div class="cert-year">2025 · Professional Development</div>
+    </div>
+    <div class="cert-card reveal reveal-delay-2">
+      <div class="cert-icon">📡</div>
+      <div class="cert-org">TimesPro · ITEC — India</div>
+      <div class="cert-name">IoT Fundamentals Certification</div>
+      <div class="cert-year">2023 · Government of India Program</div>
+    </div>
+    <div class="cert-card reveal reveal-delay-3">
+      <div class="cert-icon">🏛️</div>
+      <div class="cert-org">EFET — Marrakech, Morocco</div>
+      <div class="cert-name">European Master's in Business Management & Strategy</div>
+      <div class="cert-year">2019–2021 · Diploma awarded 2024</div>
+    </div>
+    <div class="cert-card reveal" style="transition-delay:0.4s">
+      <div class="cert-icon">📚</div>
+      <div class="cert-org">IIM — Niamey, Niger</div>
+      <div class="cert-name">Professional Bachelor's in Business Management</div>
+      <div class="cert-year">2017–2018</div>
+    </div>
+    <div class="cert-card reveal" style="transition-delay:0.5s">
+      <div class="cert-icon">💡</div>
+      <div class="cert-org">Currently Studying</div>
+      <div class="cert-name">Data Science & Machine Learning Fundamentals</div>
+      <div class="cert-year">In progress · 2025–2026</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="section-label">Get In Touch</div>
+    <h2 class="section-title">Let's Work Together</h2>
+    <p class="section-sub">
+      Open to remote data analyst roles, data entry positions, and administrative opportunities worldwide. Let's connect!
+    </p>
+    <div class="contact-links">
+      <a href="mailto:djibooumarounadia@gmail.com" class="contact-link">
+        <span class="contact-link-icon">✉️</span>
+        djibooumarounadia@gmail.com
+      </a>
+      <a href="tel:+22782619001" class="contact-link">
+        <span class="contact-link-icon">📱</span>
+        +227 82 619 001
+      </a>
+      <a href="https://github.com/" target="_blank" class="contact-link">
+        <span class="contact-link-icon">🐙</span>
+        GitHub Portfolio
+      </a>
+      <a href="https://linkedin.com/" target="_blank" class="contact-link">
+        <span class="contact-link-icon">💼</span>
+        LinkedIn Profile
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Nadiatou Djibo Oumarou · Built with care · Niamey, Niger</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Skill bars on scroll
+  const skillsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.3 });
+
+  const grid = document.getElementById('skills-grid');
+  if (grid) skillsObserver.observe(grid);
+</script>
+</body>
+</html>
